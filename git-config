@@ -1,0 +1,12 @@
+#!/bin/bash
+#Configure git to be able to commit changes
+#Usage: git-config <email-server>
+#Pre-requisites: git installed
+#TODO: currently problematic since it configures ubuntu as a user. Hopefully not too much harmful.
+#TODO: the right solution would be to configure a proper user.
+
+NAME=`getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1`
+git config --global --add user.name "$NAME"
+git config --global --add user.email "$USER@$1"
+git config --global --list
+
