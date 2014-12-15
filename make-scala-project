@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#Create new scala Gradle project
+#Usage: make-scala-project <project-name>
+
+mkdir $2
+cd $2
+mkdir src
+mkdir src/main
+mkdir src/main/java
+mkdir src/main/resources
+mkdir src/main/scala
+mkdir src/test
+mkdir src/test/java
+mkdir src/test/resources
+mkdir src/test/scala
+
+cat >build.gralde <<EOF
+apply plugin: 'eclipse'
+apply plugin: 'scala'
+
+group = '$1.$2'
+
+eclipse.classpath.downloadJavadoc = true // defaults to 'false'
+
+dependencies {
+  //add more dependencies here
+  testCompile 'org.scalatest:scalatest_2.11:2.+'
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+EOF
+
