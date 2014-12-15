@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#Installs Scala IDE based on Eclipse
+#Pre-requisites: jdk (e.g. oracle-jdk8-install) and preferably Gradle (e.g. gradle-build-install)
+#
+URL=http://downloads.typesafe.com/scalaide-pack/4.0.0-rc4-luna-211-20141210/scala-SDK-4.0.0-rc4-2.11-linux.gtk.x86_64.tar.gz
+echo $URL
+wget -O /tmp/eclipse-ide.tar.gz "$URL"
+sudo tar -zxvf /tmp/eclipse-ide.tar.gz -C /usr/lib/
+rm /tmp/eclipse-ide.tar.gz
+sudo ln -s /usr/lib/eclipse/eclipse /usr/bin/eclipse
+
+#Prepare proper eclipse.ini reflecting Java 8 specifics
+sudo cat >eclipse.ini <<EOF
+-startup
+plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar
+--launcher.library
+plugins/org.eclipse.equinox.launcher.gtk.linux.x86_64_1.1.200.v20140603-1326
+-vm /dev/shm/java/jre/bin
+-vmargs
+-Xmx2G
+-Xms200m
+EOF
+sudo cp eclipse.ini /usr/lib/eclipse/eclipse.ini
+rm eclipse.ini
+sudo ln -s /usr/lib/eclipse/eclipse.ini /etc/eclipse.ini
+
+#Make Desktop Entry
+cat >eclipse.desktop <<EOF
+[Desktop Entry]
+Name=Eclipse 
+Type=Application
+Terminal=false
+Icon=eclipse
+Exec=env UBUNTU_MENUPROXY= eclipse
+Comment=Integrated Development Environment
+NoDisplay=false
+Categories=Development;IDE;
+Name[en]=Eclipse
+EOF
+sudo desktop-file-install eclipse.desktop
+rm eclipse.desktop
+sudo cp /usr/lib/eclipse/icon.xpm /usr/share/pixmaps/eclipse.xpm
+
+#Change permissions for configurations to avoid locking problem
+sudo chmod -R o+rwx /usr/lib/eclipse/configuration
+
