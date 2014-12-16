@@ -11,13 +11,7 @@ fi
 
 cd  
 sudo sed "s/localhost/localhost `hostname`/" -i /etc/hosts 
-sudo adduser --disabled-password --ingroup sudo $1 <<EOF
-$2
-
-
-
-Y
-EOF
+sudo adduser --disabled-password --ingroup sudo --gecos "$2" $1
 sudo cp -r .ssh /home/$1
 sudo chown $1 /home/$1/.ssh
 sudo chown $1 /home/$1/.ssh/authorized_keys
