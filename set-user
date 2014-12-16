@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#Configure proper user for a cloud desktop instance 
+#Usage:  set-user username
+#Pre-requisites: none 
+
+HOST=`hostname`
+sudo 's/localhost/localhost $HOST/' /etc/hosts
+sudo adduser --disabled-password --ingroup sudo $1
+sudo cp -r .ssh /home/$1
+sudo chown $1 /home/$1/.ssh
+sudo chown $1 /home/$1/.ssh/authorized_keys
+sudo cp ./.Xauthority /home/$1
+sudo chown $1 /home/$1/.Xauthority
+sudo reboot
+
+
+
