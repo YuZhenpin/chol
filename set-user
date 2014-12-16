@@ -1,12 +1,23 @@
 #!/bin/bash
 
 #Configure proper user for a cloud desktop instance 
-#Usage:  set-user username
+#Usage:  set-user username "Full Name"
 #Pre-requisites: none 
 
-HOST=`hostname`
-sudo 's/localhost/localhost $HOST/' /etc/hosts
-sudo adduser --disabled-password --ingroup sudo $1
+if [ "$#" -ne 2 ]; then
+    echo "Usage: set-user username \"Full Name\""
+    exit 1 
+fi
+
+cd  
+sudo sed "s/localhost/localhost `hostname`/" -i /etc/hosts 
+sudo adduser --disabled-password --ingroup sudo $1 <<EOF
+$2
+
+
+
+Y
+EOF
 sudo cp -r .ssh /home/$1
 sudo chown $1 /home/$1/.ssh
 sudo chown $1 /home/$1/.ssh/authorized_keys
