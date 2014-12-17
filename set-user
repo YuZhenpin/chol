@@ -2,7 +2,7 @@
 
 #Configure proper user for a cloud desktop instance 
 #Usage:  set-user username "Full Name" e-mail
-#Pre-requisites: git installed 
+#Pre-requisites: git and docker installed 
 
 if [ "$#" -ne 3 ]; then
     echo "Usage: set-user username \"Full Name\"" e-mail
@@ -11,12 +11,13 @@ fi
 
 cd  
 sudo sed "s/localhost/localhost `hostname`/" -i /etc/hosts 
-sudo adduser --disabled-password --ingroup sudo --ingroup docker --gecos "$2" $1
+sudo adduser --disabled-password --gecos "$2" $1
+sudo gpasswd -a $1 docker
 sudo cp -r .ssh /home/$1
-sudo chown $1 /home/$1/.ssh
-sudo chown $1 /home/$1/.ssh/authorized_keys
+sudo chown $1:$1 /home/$1/.ssh
+sudo chown $1:$1 /home/$1/.ssh/authorized_keys
 sudo cp ./.Xauthority /home/$1
-sudo chown $1 /home/$1/.Xauthority
+sudo chown $1:$1 /home/$1/.Xauthority
 
 if [[ "$3" == ?*@?* ]] ; then
  email=$3 
@@ -30,7 +31,6 @@ fi
 git config --global --add user.name "$2"
 git config --global --add user.email "$email"
 
-sudo reboot
 
 
 
