@@ -32,6 +32,8 @@ fi
 git config --global --add user.name "$2"
 git config --global --add user.email "$email"
 
+sudo cp .gitconfig /home/$1
+sudo chown $1:$1 /home/$1/.gitconfig
 
 
 
