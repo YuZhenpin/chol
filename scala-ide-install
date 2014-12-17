@@ -45,8 +45,3 @@ sudo cp /usr/lib/eclipse/icon.xpm /usr/share/pixmaps/eclipse.xpm
 #Change permissions for configurations to avoid locking problem
 sudo chmod -R o+rwx /usr/lib/eclipse/configuration
 
-#I personally prefer Gradle, but sbt is still sometimes required
-wget -O /tmp/sbt.deb https://dl.bintray.com/sbt/debian/sbt-0.13.7.deb
-sudo dpkg -i /tmp/sbt.deb
-rm /tmp/sbt.deb
-sbt about
