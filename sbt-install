@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#Install Scala  SImple Build Tool
+#Personally I prefer Gradle, but sbt is sometimes required by 3rd party Scala libraries
+#Pre-requisites: jdk (e.g. oracle-jdk8-install) and preferably Gradle (e.g. gradle-build-install)
+#
+URL=https://dl.bintray.com/sbt/debian/sbt-0.13.7.deb
+echo $URL
+wget -O /tmp/sbt.deb "$URL"
+
+sudo dpkg -i /tmp/sbt.deb
+rm /tmp/sbt.deb
+sbt about
+
