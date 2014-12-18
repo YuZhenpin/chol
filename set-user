@@ -13,6 +13,8 @@ cd
 sudo sed "s/localhost/localhost `hostname`/" -i /etc/hosts 
 sudo adduser --disabled-password --gecos "$2" $1
 sudo gpasswd -a $1 docker
+sudo gpasswd -a $1 plugdev #is it really required?
+sudo gpasswd -a $1 netdev
 sudo sed -e "\$a$1 ALL=(ALL) NOPASSWD: ALL" -i /etc/sudoers
 sudo cp -r .ssh /home/$1
 sudo chown $1:$1 /home/$1/.ssh
