@@ -1,0 +1,6 @@
+#!/bin/bash
+# Build docker image for oracle jdk version 8
+
+docker build -t chol/sbt:0.13.7 .
+
+
