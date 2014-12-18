@@ -1,0 +1,18 @@
+#!/bin/bash
+#Run sbt in Docker container for the current user
+
+U=$USER
+N=`getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1`
+I=$UID
+A=$1
+P=`pwd`
+docker run -i --rm -v /home/$U:/home/$U chol/sbt <<EOF
+sudo adduser --disabled-password --no-create-home --gecos "$N" --uid $I $U
+su $U
+cd $P
+sbt $A
+exit
+EOF
+
+
+

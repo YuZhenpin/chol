@@ -1,6 +1,18 @@
 #!/bin/bash
-# Build docker image for lms framework
+# Build and publish lms framework
 
-docker build -t chol/lms:latest .
+echo 'SBT_OPTS="-Xms3G -Xmx3G -Xss1M -XX:MaxPermSize=192M -XX:+UseParallelGC"' > ~/.sbtconfig
+cd
+mkdir lms
+cd lms
+git clone https://github.com/TiarkRompf/virtualization-lms-core.git
+cd virtualization-lms-core
+~/chol/sbt/sbt publish-local
+~/chol/sbt/sbt test
+cd ..
+git clone https://github.com/scala-lms/tutorials.git
+cd tutorials
+~/chol/sbt/sbt test
+cd
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Build docker image for sbt
 
-docker build -t chol/sbt:0.13.7 .
+docker build -t chol/sbt:latest .
 
 

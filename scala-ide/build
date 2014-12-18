@@ -1,0 +1,6 @@
+#!/bin/bash
+# Build docker image for Scala IDE
+
+docker build -t chol/eclipse:latest .
+
+
