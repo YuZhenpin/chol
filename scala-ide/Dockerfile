@@ -5,7 +5,8 @@ run wget -O /tmp/eclipse-ide.tar.gz http://downloads.typesafe.com/scalaide-pack/
     sudo ln -s /usr/lib/eclipse/eclipse /usr/bin/eclipse && \
     sudo ln -s /usr/lib/eclipse/eclipse.ini /etc/eclipse.ini && \
     sudo chmod -R o+rwx /usr/lib/eclipse/configuration && \
-    sudo apt-get install -y libgtk2.0-0
+    sudo apt-get install -y libgtk2.0-0 && \
+    sudo apt-get install -y libxtst6
 
 add ./eclipse.ini /usr/lib/eclipse/eclipse.ini
 
