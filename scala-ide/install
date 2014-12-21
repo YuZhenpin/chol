@@ -1,0 +1,21 @@
+#!/bin/bash
+# Install Eclipse desktop link
+
+sudo cp ./eclipse /usr/bin
+cat >eclipse.desktop <<EOF
+[Desktop Entry]
+Name=Eclipse 
+Type=Application
+Terminal=false
+Icon=eclipse
+Exec=env UBUNTU_MENUPROXY= eclipse
+Comment=Integrated Development Environment
+NoDisplay=false
+Categories=Development;IDE;
+Name[en]=Eclipse
+EOF
+sudo desktop-file-install eclipse.desktop
+rm eclipse.desktop
+sudo cp ./icon.xpm /usr/share/pixmaps/eclipse.xpm
+
+
