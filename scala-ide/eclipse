@@ -7,8 +7,7 @@ I=$UID
 A=$1
 P=`pwd`
 docker run -i --rm -e DISPLAY=$DISPLAY -v /home/$U:/home/$U -v /tmp/.X11-unix:/tmp/.X11-unix chol/eclipse <<EOF
-echo $DISPLAY
-sudo adduser --disabled-password --no-create-home --gecos "$N" --uid $I $U
+sudo adduser -q --disabled-password --no-create-home --gecos "$N" --uid $I $U
 su $U
 cd
 eclipse

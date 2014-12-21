@@ -7,7 +7,7 @@ I=$UID
 A=$1
 P=`pwd`
 docker run -i --rm -v /home/$U:/home/$U chol/sbt <<EOF
-sudo adduser --disabled-password --no-create-home --gecos "$N" --uid $I $U
+sudo adduser -q --disabled-password --no-create-home --gecos "$N" --uid $I $U
 su $U
 cd $P
 sbt $A
