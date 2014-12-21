@@ -17,5 +17,5 @@ EOF
 sudo desktop-file-install eclipse.desktop
 rm eclipse.desktop
 sudo cp ./icon.xpm /usr/share/pixmaps/eclipse.xpm
-
+cp -r .sbt ~/
 
