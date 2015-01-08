@@ -1,15 +1,16 @@
 #!/bin/bash
-#Run sbt in Docker container for the current user
+#Run eclipse in Docker container for the current user
 
 U=$USER
 N=`getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1`
 I=$UID
 A=$1
 P=`pwd`
-docker run -i --rm -e DISPLAY=$DISPLAY -v /home/$U:/home/$U -v /tmp/.X11-unix:/tmp/.X11-unix chol/eclipse <<EOF
+docker run -i --rm -e DISPLAY=$DISPLAY -v /home/$U:/home/$U -v /tmp/.X11-unix:/tmp/.X11-unix chol/scala-ide <<EOF
 sudo adduser -q --disabled-password --no-create-home --gecos "$N" --uid $I $U
 su $U
 cd
+export UBUNTU_MENUPROXY=
 eclipse
 EOF
 

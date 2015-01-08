@@ -1,21 +1,9 @@
 #!/bin/bash
-# Install Eclipse desktop link
+# Install Scala IDE desktop link
 
-sudo cp ./eclipse /usr/bin
-cat >eclipse.desktop <<EOF
-[Desktop Entry]
-Name=Eclipse 
-Type=Application
-Terminal=false
-Icon=eclipse
-Exec=env UBUNTU_MENUPROXY= eclipse
-Comment=Integrated Development Environment
-NoDisplay=false
-Categories=Development;IDE;
-Name[en]=Eclipse
-EOF
-sudo desktop-file-install eclipse.desktop
-rm eclipse.desktop
-sudo cp ./icon.xpm /usr/share/pixmaps/eclipse.xpm
+sudo cp ./scala-ide /usr/bin
+sudo cp ./scala-ide.png /usr/share/pixmaps/
 cp -r .sbt ~/
+sudo cp ../sbt/sbt /usr/bin
+sudo desktop-file-install scala-ide.desktop
 
