@@ -1,0 +1,13 @@
+#!/bin/bash
+#Auxilary script to run sbt in Docker container for the current user
+
+U=$1
+N=$2
+I=$3
+P=$4
+C=$5
+sudo adduser -q --disabled-password --no-create-home --gecos "$N" --uid $I $U
+su $U -c "cd $P;sbt $C"
+
+
+

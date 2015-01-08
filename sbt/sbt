@@ -4,14 +4,9 @@
 U=$USER
 N=`getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1`
 I=$UID
-A=$1
 P=`pwd`
-docker run -i --rm -v /home/$U:/home/$U chol/sbt <<EOF
-sudo adduser -q --disabled-password --no-create-home --gecos "$N" --uid $I $U
-su $U
-cd $P
-sbt $A
-EOF
+C=$1
+docker run -it --rm -v /home/$U:/home/$U chol/sbt sbt-run $U "$N" $I $P $C
 
 
 
