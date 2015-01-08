@@ -1,14 +1,22 @@
 #!/bin/bash
 
 #Run one of the chol system scripts
-wget -O /tmp/$1 https://github.com/asterkin/chol/raw/master/system/$1
-chmod +x /tmp/$1
-if [ "$#" -gt 1 ]; then
-ARGS="${@:2}"
-else
-ARGS=""
-fi
-/tmp/$1 "$ARGS"
-rm /tmp/$1
+cmd=$1
+shift
+whitespace="[[:space:]]"
+args=/tmp/$cmd
+for arg in "$@";
+do
+  if [[ $arg =~ $whitespace ]]
+  then
+    arg=\"$arg\"
+  fi
+  args="$args $arg"
+done
+wget -q -O /tmp/$cmd https://github.com/asterkin/chol/raw/master/system/$cmd
+chmod +x /tmp/$cmd
+echo "$args"
+eval "$args"
+rm /tmp/$cmd
 
 
