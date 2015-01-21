@@ -1,6 +1,7 @@
 #!/bin/bash
 # Build docker image for oracle jdk version 8
 
-docker build -t chol/jdk:8.0 .
+docker build -t asterkin/jdk:8.0 .
+docker push asterkin/jdk:8.0
 
 

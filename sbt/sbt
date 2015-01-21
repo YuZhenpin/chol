@@ -6,7 +6,7 @@ N=`getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1`
 I=$UID
 P=`pwd`
 C=$1
-docker run -it --rm -v /home/$U:/home/$U chol/sbt sbt-run $U "$N" $I $P $C
+docker run -it --rm -v /home/$U:/home/$U asterkin/sbt sbt-run $U "$N" $I $P $C
 
 
 

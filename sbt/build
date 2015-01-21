@@ -1,6 +1,7 @@
 #!/bin/bash
 # Build docker image for sbt
 
-docker build -t chol/sbt:latest .
+docker build -t asterkin/sbt:latest .
+docker push asterkin/sbt
 
 
