@@ -3,7 +3,7 @@
 #Install scla-ide (Eclipse)run script and desktop shortcut
 #Pre-requisites: git and docker installed
 
-docker pull asterkin/scala-ide
+sudo docker pull asterkin/scala-ide
 git clone http://github.com/asterkin/chol
 cd chol/scala-ide
 ./install
