@@ -5,9 +5,9 @@ The basic idea behind this project is to support immutable development environme
 
 There are some trade-offs to be addressed, namely basic infrastructure and granularity of the scripts. Many options are available but for the time being I've opted for the simples one I could think about: 
 
-  a. keep scripts small and modular - single responsibility principle
-  b. store snapshots for particular configurations such as lxde graphics desktop + docker
-  c. use snapshot for creating desktop instances per developer and configure the rest of tools as Docker containers.
+  1. keep scripts small and modular - single responsibility principle
+  2. store snapshots for particular configurations such as lxde graphics desktop + docker
+  3. use snapshot for creating desktop instances per developer and configure the rest of tools as Docker containers.
 
 Obviously specific configurations could also be wrapped up in something like Ansible or Puppet cook books, but I could never find enough energy for this, and the fashion is changing too frequently.
 
