@@ -9,7 +9,7 @@ There are some trade-offs to be addressed, namely basic infrastructure and granu
   b) store snapshots for particular configurations such as lxde graphics desktop + docker
   c) use snapshot for creating desktop instances per developer and configure the rest of tools as Docker containers.
 
-Obvisouly specific configurations could also be wrapped up in something like Ansible or Puppet cook books, but I could never find enough energy for this, and the fashion is changing too frequently.
+Obviously specific configurations could also be wrapped up in something like Ansible or Puppet cook books, but I could never find enough energy for this, and the fashion is changing too frequently.
 
 To start working with the Chol scripts on a cloud I recommend the following simple procedure:
 
