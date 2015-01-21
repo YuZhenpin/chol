@@ -1,48 +1,51 @@
 chol
 ====
 
-The basic idea behind this project is to support an idea of immutable development environments: everythin is in scripts, everything is in version control, virtual machines could be destroyed at any moment and re-created from the scratch, hence the name "Chol" - Phoenix is Hebrew.
+The basic idea behind this project is to support immutable development environments: everything is in scripts, everything is in version control, virtual machines can be destroyed at any moment and re-created from the scratch, hence the name "Chol" - Phoenix is Hebrew.
 
-There are some trade-offs to be addressed, namely basic infrastrcuture and granularity of the scripts. Many options are available I opted for the simples one I could think about: 
+There are some trade-offs to be addressed, namely basic infrastructure and granularity of the scripts. Many options are available but for the time being I've opted for the simples one I could think about: 
 
-  a) keep scripts small and modular - single responsibility principle
-  b) store snapshots for particular configurations such as lxde graphics desktop, scala development environment, etc.
+  1. keep scripts small and modular - single responsibility principle
+  2. store snapshots for particular configurations such as lxde graphics desktop + docker
+  3. use snapshot for creating desktop instances per developer and configure the rest of tools as Docker containers.
 
-Obvisouly specific configurations could also be wrapped up in something like Ansible or Puppet cook books, but I could never find enough energy for this, and the fashion is changing too frequently.
+Obviously specific configurations could also be wrapped up in something like Ansible or Puppet cook books, but I could never find enough energy for this, and the fashion is changing too frequently.
 
-To start working with the Chol scripts I recommend the following simple procedure:
+To start working with the Chol scripts on a cloud I recommend the following simple procedure:
 
   1. Create a cloud instance of a basic Ubuntu server (currently 14.04)
   2. SSH login using your favorite SSH client (e.g. MobaExterm: http:http://mobaxterm.mobatek.net/)
   2. sudo apt-get update
   3. sudo apt-get install git
   4. git clone https://github.com/asterkin/chol.git
-  5. cd chol
-  6. ./docker-install
-  7. ./set-user <username> "Full Name" e-mail server (e.g. ./set-user asterkin "Asher Sterkin" cisco)
-  8. Reconnect as <username>
-  9. git clone http:github.com/asterkin/chol (it's definitely imperfect, need to think about better way)
-  10. cd chol
-  11. Run other installation scripts upon the need; some scripts call reboot 
-  12. Keep in mind there might be dependencies between scrpts, for example gradle-build assumes oracle-jdk8 being installed
-
-If you work with a team you might want to create a snaphot of graphical desktop environment:
-
-  1. SSH login as ubuntu
-  2. sudo apt-get update -y
-  3. sudo apt-get install -y git
-  4. git clone http://github.com/asterkin/chol
-  5. cd chol
+  5. cd chol/system
   6. ./docker-install
   7. ./minimal-lxde-desktop
   8. ./x2go-server (you will need an x2go client from http://http://wiki.x2go.org/doku.php)
-  9. sudo cp set-user /usr/bin
+  9. sudo cp chol /usr/bin
   10. cd ..
   11. rm -rf chol
   12. make a snapshot, for example ubuntu-14.4-docker-lxde
-  13. Other snapshots could be built on the top this basic one. I need to think how to dockerize all this business such that every developer will have only one instance, e.g. asher-desktop with
-      the rest beong run from docker containers. It would require complete re-write of all chol scripts
-  14. When creating an instance from this snapshot every user could run set-user to personalize the instance
 
+To create and configure a new desktop for some user:
+
+  1. Create new instance from the snapshot
+  2. SSH login as a system user (e.g. ubuntu)
+  3. chol set-user <user-name> "Full Name" <-mail-server>. Example: chol set-user asterkin "asher Sterkin" cisco
+  4. Re-login via SSH (e.g. using X2Go Client: http://wiki.x2go.org/doku.php/doc:usage:x2goclient)
+  5. git clone https://github.com/asterkin/chol
+  6. Install tools you want to work with (see below Scala-IDE example). This procedure is still suboptimal. In future versions it might be better to support all of them via the chol script.
+
+To install Scala IDE:
+  1. cd chol/oracle-jdk8
+  2. ./build
+  3. cd ../sbt
+  4. ./build
+  5. cd ../scala-ide
+  6. ./build
+  7. ./install
+  8. 
+  
+This procedure will prepare 3 local Docker images with Java8 jdk, Sbt, and Scala IDE (Eclipse). It will also make sbt launchible from command line and will install scala-ide.desktop file in /usr/share/application to make it available from Ubuntu Application Launchbar.
 
 
