@@ -32,20 +32,18 @@ To create and configure a new desktop for some user:
   1. Create new instance from the snapshot
   2. SSH login as a system user (e.g. ubuntu)
   3. chol set-user <user-name> "Full Name" <-mail-server>. Example: chol set-user asterkin "asher Sterkin" cisco
+  4. chol <your favorite development tool>. Example: chol scala-ide (currently the only one supported)
   4. Re-login via SSH (e.g. using X2Go Client: http://wiki.x2go.org/doku.php/doc:usage:x2goclient)
-  5. git clone https://github.com/asterkin/chol
-  6. Install tools you want to work with (see below Scala-IDE example). This procedure is still suboptimal. In future versions it might be better to support all of them via the chol script.
+  
 
 To install Scala IDE:
-  1. cd chol/oracle-jdk8
-  2. ./build
-  3. cd ../sbt
-  4. ./build
-  5. cd ../scala-ide
-  6. ./build
-  7. ./install
-  8. 
+  1. chol scala-ide (sbt will be installed automatically as a part of the process)
+  2. Create your project
+  3. Create build.sbt file
+  4. sbt eclipse
+  5. Launch Eclipse (should be avaliable from lauchpad)
+  6. Import created project(s)
   
-This procedure will prepare 3 local Docker images with Java8 jdk, Sbt, and Scala IDE (Eclipse). It will also make sbt launchible from command line and will install scala-ide.desktop file in /usr/share/application to make it available from Ubuntu Application Launchbar.
+This procedure will pull from Docker Hub 3  Docker images with Java8 jdk, Sbt, and Scala IDE (Eclipse). It will also make sbt launchible from command line and will install scala-ide.desktop file in /usr/share/application to make it available from Ubuntu Application Launchbar.
 
 
