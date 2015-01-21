@@ -3,7 +3,7 @@ chol
 
 The basic idea behind this project is to support immutable development environments: everything is in scripts, everything is in version control, virtual machines can be destroyed at any moment and re-created from the scratch, hence the name "Chol" - Phoenix is Hebrew.
 
-There are some trade-offs to be addressed, namely basic infrastrcuture and granularity of the scripts. Many options are available I opted for the simples one I could think about: 
+There are some trade-offs to be addressed, namely basic infrastructure and granularity of the scripts. Many options are available but for the time being I've opted for the simples one I could think about: 
 
   a) keep scripts small and modular - single responsibility principle
   b) store snapshots for particular configurations such as lxde graphics desktop + docker
