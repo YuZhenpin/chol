@@ -1,0 +1,7 @@
+#!/bin/bash
+# Build docker image for ansible
+
+docker build -t asterkin/ansible:latest .
+docker push asterkin/ansible:latest
+
+

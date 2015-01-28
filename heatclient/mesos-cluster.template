@@ -1,0 +1,46 @@
+heat_template_version: 2013-05-23
+
+resources:
+  mesos_master_1: 
+    type: "OS::Nova::Server"
+    properties:
+      flavor: GP2-Large 
+      image: ubuntu-14.04-docker-mesos-master
+      name: mesos-master-1
+      user_data:
+        str_replace:
+          template: |
+           #!/bin/bash -v
+           sudo sed "s/localhost/localhost `hostname`/" -i /etc/hosts
+           sudo docker run -d \
+           -p 2181:2181  \
+           -p 2888:2888  \
+           -p 3888:3888  \
+           garland/zookeeper
+           sudo docker run --net="host" \
+           -p 5050:5050 \
+           -e MESOS_HOSTNAME=`hostname` \
+           -e MESOS_IP=127.0.0.1 \
+           -e MESOS_ZK=zk://localhost:2181/mesos \
+           -e MESOS_PORT=5050 \
+           -e MESOS_LOG_DIR=/var/log/mesos \
+           -e MESOS_QUORUM=1 \
+           -e MESOS_REGISTRY=in_memory \
+           -e MESOS_WORK_DIR=/var/lib/mesos \
+           -d \
+           garland/mesosphere-docker-mesos-master
+           docker run \
+           -d \
+           -p 8080:8080 \
+           garland/mesosphere-docker-marathon \
+           --master zk://localhost:2181/mesos \
+           --zk zk://localhost:2181/marathon
+           docker run -d \
+           --name mesos_slave_1 \
+           --entrypoint="mesos-slave" \
+           -e MESOS_MASTER=zk://localhost:2181/mesos \
+           -e MESOS_ZK=zk://localhost:2181/mesos \
+           -e MESOS_LOG_DIR=/var/log/mesos \
+           -e MESOS_LOGGING_LEVEL=INFO \
+           garland/mesosphere-docker-mesos-master:latest
+      key_name: asher-key
