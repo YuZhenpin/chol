@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#Installis mesos master image
+#Pre-requisite: based on mesos slave image
+
+sudo docker pull garland/zookeeper
+sudo docker pull garland/mesosphere-docker-marathon
+
+
+
