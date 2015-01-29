@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Installis mesos slave image
+#Installs mesos slave image
 #Pre-requisite: none
 
 sudo apt-get install -y curl

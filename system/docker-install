@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Installis docker daemon
+#Installs docker daemon
 #Pre-requisite: none
 
 sudo apt-get install -y curl

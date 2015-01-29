@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#Installs desktop image
+#Pre-requisite: none
+
+./docker-install
+./minimal-lxde-desktop
+./x2go-server
+sudo cp ../chol /usr/bin
+
+
+

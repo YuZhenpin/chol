@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Installis mesos master image
+#Installs mesos master image
 #Pre-requisite: based on mesos slave image
 
 sudo docker pull garland/zookeeper
