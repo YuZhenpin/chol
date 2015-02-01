@@ -1,5 +1,6 @@
 heat_template_version: 2013-05-23
 
+#TODO: parametrize cluster name and reflect in host names as well
 resources:
   mesos_master_1: 
     type: "OS::Nova::Server"
@@ -14,21 +15,23 @@ resources:
             #!/bin/bash -v
             sudo sed "s/localhost/localhost `hostname`/" -i /etc/hosts
             HOST_IP=`hostname -I | cut -d" " -f 1`
-            HOST_NAME=mesos-master-1
 
             sudo sh -c "echo '1' > /etc/zookeeper/conf/myid"
-            sudo sh -c "echo $HOST_IP >> /etc/zookeeper/conf/zoo.cfg"
+            sudo sed "s/#server.1=zookeeper1/server.1=$HOST_IP/" -i /etc/zookeeper/conf/zoo.cfg
             sudo service zookeeper restart
 
-            sudo sed "s/1.1.1.1/$HOST_IP/" -i /etc/mesos/zk
+            sudo sed "s/localhost/$HOST_IP/" -i /etc/mesos/zk
             sudo sh -c "echo '1' >/etc/mesos-master/quorum" #TODO: set to 2
-            sudo sh -c "echo $HOST_NAME >/etc/mesos-master/hostname"
-            sudo sh -c "echo $HOST_NAME >/etc/marathon/conf/hostname"
+            sudo sh -c "echo $HOST_IP >/etc/mesos-master/ip"
+            sudo sh -c "echo MesosCluster >/etc/mesos-master/cluster"
+            sudo sh -c "echo $HOST_IP >/etc/mesos-master/hostname"
+            sudo service mesos-master restart
 
             sudo service mesos-slave stop
             sudo sh -c "echo manual > /etc/init/mesos-slave.override"
 
-            sudo service mesos-master restart
+            sudo mkdir /etc/marathon/conf
+            sudo sh -c "echo $HOST_IP >/etc/marathon/conf/hostname"
             sudo service marathon restart
 
   mesos_slave_1: 
@@ -41,10 +44,38 @@ resources:
       user_data:
         str_replace:
           params:
-            host_ip1: {get_attr: [mesos_master_1, first_address]} 
+            master_1_ip: {get_attr: [mesos_master_1, first_address]} 
           template: |
             #!/bin/bash -v
             sudo sed "s/localhost/localhost `hostname`/" -i /etc/hosts
-            HOST_IP=host_ip1
-            ~/mesos-slave-config
-            
+            MASTER_IP=master_1_ip
+            SLAVE_IP=`hostname -I | cut -d" " -f 1`
+            sudo sed "s/localhost/$MASTER_IP/" -i /etc/mesos/zk
+
+            sudo sh -c "echo $SLAVE_IP >/etc/mesos-slave/ip"
+            sudo sh -c "echo $SLAVE_IP >/etc/mesos-slave/hostname"
+            /home/ubuntu/mesos-slave-config
+            rm /home/ubuntu/mesos-slave-config
+
+  mesos_slave_2: 
+    type: "OS::Nova::Server"
+    properties:
+      flavor: GP2-Large 
+      image: ubuntu-14.04-mesos-slave-2015-01-27
+      name: mesos-slave-2
+      key_name: asher-key
+      user_data:
+        str_replace:
+          params:
+            master_1_ip: {get_attr: [mesos_master_1, first_address]} 
+          template: |
+            #!/bin/bash -v
+            sudo sed "s/localhost/localhost `hostname`/" -i /etc/hosts
+            MASTER_IP=master_1_ip
+            SLAVE_IP=`hostname -I | cut -d" " -f 1`
+            sudo sed "s/localhost/$MASTER_IP/" -i /etc/mesos/zk
+
+            sudo sh -c "echo $SLAVE_IP >/etc/mesos-slave/ip"
+            sudo sh -c "echo $SLAVE_IP >/etc/mesos-slave/hostname"
+            /home/ubuntu/mesos-slave-config
+            rm /home/ubuntu/mesos-slave-config

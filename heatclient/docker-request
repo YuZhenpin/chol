@@ -1,0 +1,38 @@
+curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
+  $1:8080/v2/apps -d '
+{
+    "cmd": "env && python3 -m http.server $PORT0",
+    "constraints": [
+        [
+            "hostname",
+            "UNIQUE"
+        ]
+    ],
+    "container": {
+        "docker": {
+            "image": "python:3"
+        },
+        "type": "DOCKER"
+    },
+    "cpus": 0.25,
+    "healthChecks": [
+        {
+            "gracePeriodSeconds": 3,
+            "intervalSeconds": 10,
+            "maxConsecutiveFailures": 3,
+            "path": "/",
+            "portIndex": 0,
+            "protocol": "HTTP",
+            "timeoutSeconds": 5
+        }
+    ],
+    "id": "my-app",
+    "instances": 2,
+    "mem": 50,
+    "ports": [
+        0
+    ],
+    "upgradeStrategy": {
+        "minimumHealthCapacity": 0.5
+    }
+}'
