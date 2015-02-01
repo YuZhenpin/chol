@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#Configure mesos slave image
+#Pre-requisite: mesos and docker installed
+
+sudo service zookeeper stop
+sudo sh -c "echo manual > /etc/init/zookeeper.override"
+
+sudo service mesos-master stop
+sudo sh -c "echo manual > /etc/init/mesos-master.override"
+
+sudo sh -c "echo 'docker,mesos' > /etc/mesos-slave/containerizers"
+sudo sh -c "echo '5mins' > /etc/mesos-slave/executor_registration_timeout"
+
+sudo service mesos-slave restart
