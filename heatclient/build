@@ -2,7 +2,7 @@
 # Build docker image for heatclient 
 
 docker build -t asterkin/heatclient:latest .
-#docker push asterkin/heatclient:latest
+docker push asterkin/heatclient:latest
 
 
 
