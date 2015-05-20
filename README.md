@@ -22,10 +22,11 @@ To start working with the Chol scripts on a cloud I recommend the following simp
   6. ./docker-install
   7. ./minimal-lxde-desktop
   8. ./x2go-server (you will need an x2go client from http://http://wiki.x2go.org/doku.php)
-  9. sudo cp chol /usr/bin
-  10. cd ..
-  11. rm -rf chol
-  12. make a snapshot, for example ubuntu-14.4-docker-lxde
+  9. cd ..
+  10. sudo cp chol /usr/bin
+  11. cd ..
+  12. rm -rf chol
+  13. make a snapshot, for example ubuntu-14.4-docker-lxde
 
 To create and configure a new desktop for some user:
 
