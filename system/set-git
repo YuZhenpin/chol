@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#Configure proper user for git 
+#Usage:  set-user username "Full Name" e-mail
+#Pre-requisites: git and docker installed 
+
+if [ "$#" -ne 3 ]; then
+    echo "Usage: set-user username \"Full Name\"" e-mail
+    exit 1 
+fi
+
+if [[ "$3" == ?*@?* ]] ; then
+ email=$3 
+else if [[ "$1" == ?*.com ]] ; then
+ email="$1@$3" 
+else
+ email="$1@$3.com" 
+fi
+fi
+
+git config --global --add user.name "$2"
+git config --global --add user.email "$email"
+
+
+
