@@ -2,6 +2,6 @@
 # Build docker image for c/c++ dev env
 
 docker build -t asterkin/cdev:latest .
-docker push asterkin/cdev:latest
+#docker push asterkin/cdev:latest
 
 

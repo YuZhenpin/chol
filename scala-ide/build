@@ -2,6 +2,6 @@
 # Build docker image for Scala IDE
 
 docker build -t asterkin/scala-ide:latest .
-docker push asterkin/scala-ide:latest
+#docker push asterkin/scala-ide:latest
 
 

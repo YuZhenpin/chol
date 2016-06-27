@@ -2,6 +2,6 @@
 # Build docker image for oracle jdk version 8
 
 docker build -t asterkin/jdk:8.0 .
-docker push asterkin/jdk:8.0
+#docker push asterkin/jdk:8.0
 
 
