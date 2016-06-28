@@ -10,13 +10,13 @@ run apt-get update -y && \
     rm /tmp/eclipse-ide.tar.gz && \
     ln -s /usr/lib/eclipse/eclipse /usr/bin/eclipse && \
     ln -s /usr/lib/eclipse/eclipse.ini /etc/eclipse.ini && \
-    chmod -R o+rwx /usr/lib/eclipse/configuration 
-#&& \
-#    eclipse -nosplash \
-#      -application org.eclipse.equinox.p2.director \
-#      -repository http://download.eclipse.org/releases/luna \
-#      -destination /usr/lib/eclipse \
-#      -installIU org.eclipse.cdt.feature.group
+    chmod -R o+rwx /usr/lib/eclipse/configuration && \
+    cat /usr/lib/eclipse/eclipse.ini | sed /MaxPermSize/d > /usr/lib/eclipse/eclipse.ini && \
+    eclipse -nosplash \
+      -application org.eclipse.equinox.p2.director \
+      -repository http://download.eclipse.org/releases/luna \
+      -destination /usr/lib/eclipse \
+      -installIU org.eclipse.cdt.feature.group
 
 
     
