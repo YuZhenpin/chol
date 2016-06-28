@@ -7,11 +7,13 @@ I=$UID
 A=$1
 P=`pwd`
 docker run -i --rm -e DISPLAY=$DISPLAY -e XAUHORITY=$XAUTHORITY -v /home/$U:/home/$U -v /tmp/.X11-unix:/tmp/.X11-unix asterkin/scala-ide <<EOF
+cat /usr/lib/eclipse/eclipse.ini | sed /MaxPermSize/d > /usr/lib/eclipse/eclipse.ini
 adduser -q --disabled-password --no-create-home --gecos "$N" --uid $I $U
 su $U
 cd
 export UBUNTU_MENUPROXY=
 eclipse
 EOF
+
 
 
