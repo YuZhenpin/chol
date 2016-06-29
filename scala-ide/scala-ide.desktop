@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Scala-IDE
+Name=Scala
 Type=Application
 Terminal=false
 Icon=scala-ide
@@ -7,5 +7,5 @@ Exec=scala-ide
 Comment=Integrated Development Environment
 NoDisplay=false
 Categories=Development;IDE;
-Name[en]=Scala-IDE
+Name[en]=Scala
 
