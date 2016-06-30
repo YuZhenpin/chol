@@ -11,6 +11,7 @@ adduser -q --disabled-password --no-create-home --gecos "$N" --uid $I $U
 su $U
 cd
 export UBUNTU_MENUPROXY=
+export SWT_GTK3=0
 eclipse
 EOF
 

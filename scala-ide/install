@@ -3,6 +3,7 @@
 
 sudo cp ./scala-ide /usr/bin
 sudo cp ./scala-ide.xpm /usr/share/pixmaps/
+sudo cp ./scala-ide.png /usr/share/pixmaps/
 cp -r .sbt ~/
 sudo cp ../sbt/sbt /usr/bin
 sudo desktop-file-install scala-ide.desktop
