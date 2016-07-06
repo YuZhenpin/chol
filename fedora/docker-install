@@ -3,18 +3,12 @@
 #Installs docker daemon
 #Pre-requisite: none
 sudo dnf update -y
-sudo tee /etc/yum.repos.d/docker.repo <<-'EOF'
-[dockerrepo]
-name=Docker Repository
-baseurl=https://yum.dockerproject.org/repo/main/fedora/$releasever/
-enabled=1
-gpgcheck=1
-gpgkey=https://yum.dockerproject.org/gpg
-EOF
-sudo dnf install -y docker-engine
+curl -fsSL https://get.docker.com/ | sh
 sudo groupadd docker
 sudo usermod -aG docker $USER
 sudo systemctl enable docker
+sudo reboot
+
 
 
 
