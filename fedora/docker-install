@@ -7,7 +7,8 @@ curl -fsSL https://get.docker.com/ | sh
 sudo groupadd docker
 sudo usermod -aG docker $USER
 sudo systemctl enable docker
-sudo reboot
+echo "Reboot manually"
+
 
 
 
