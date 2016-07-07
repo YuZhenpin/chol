@@ -1,0 +1,8 @@
+#!/bin/bash
+# Build docker image for centos gcc and g++
+
+docker build -t asterkin/gcc:4.8.5 .
+docker tag asterkin/gcc:4.8.5 asterkin/gcc:latest 
+#docker push asterkin/gcc:latest
+
+
