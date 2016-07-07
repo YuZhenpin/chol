@@ -1,0 +1,12 @@
+#!/bin/bash
+#Run make in Docker container for the current user
+
+U=$USER
+N=`getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1`
+I=$UID
+P=`pwd`
+C=$1
+docker run -it --rm -v /home/$U:/home/$U asterkin/gcc make-run $U "$N" $I $P $C
+
+
+
