@@ -6,6 +6,7 @@ sudo dnf update -y
 curl -fsSL https://get.docker.com/ | sh
 sudo groupadd docker
 sudo usermod -aG docker $USER
+sudo systemctl start docker
 sudo systemctl enable docker
 echo "Reboot manually"
 
