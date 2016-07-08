@@ -7,7 +7,7 @@ I=$3
 P=$4
 C=$5
 adduser -M -c "$N" --uid $I $U
-su $U -c "cd $P;make $C"
+su $U -c "cd $P;go $C"
 
 
 

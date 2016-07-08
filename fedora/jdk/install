@@ -1,5 +1,0 @@
-#!/bin/bash
-# Install make command link
-
-sudo cp ./make /usr/bin
-

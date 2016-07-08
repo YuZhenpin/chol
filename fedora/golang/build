@@ -1,0 +1,8 @@
+#!/bin/bash
+# Build docker image for centos golang
+
+docker build -t asterkin/golang:1.6.2 .
+docker tag asterkin/golang:1.6.2 asterkin/golang:latest 
+#docker push asterkin/golang:latest
+
+

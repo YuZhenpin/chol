@@ -1,0 +1,5 @@
+#!/bin/bash
+# Install go command link
+
+sudo cp ./go /usr/bin
+
