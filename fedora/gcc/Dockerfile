@@ -1,9 +1,7 @@
-FROM centos:latest
+FROM asterkin/base:latest
 
-run yum update -y && \
-    yum group install -y "Development Tools"
+run yum group install -y "Development Tools"
 
-add ./make-run /usr/bin/make-run
 
 
 

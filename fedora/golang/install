@@ -2,4 +2,6 @@
 # Install go command link
 
 sudo cp ./go /usr/bin
+sudo cp ./godoc /usr/bin
+sudo cp ./gofmt /usr/bin
 

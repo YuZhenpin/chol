@@ -1,0 +1,24 @@
+#!/bin/bash
+#Auxilary script to run a process in Docker container for the current user
+
+U=$1
+N=$2
+I=$3
+P=$4
+args=$5
+shift 5
+whitespace="[[:space:]]"
+for arg in "$@";
+do
+  if [[ $arg =~ $whitespace ]]
+  then
+    arg=\"$arg\"
+  fi
+  args="$args $arg"
+done
+
+adduser -M -c "$N" --uid $I $U
+su $U -c "cd $P;eval $args"
+
+
+

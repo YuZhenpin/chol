@@ -1,0 +1,5 @@
+#!/bin/bash
+# Install make command link
+
+sudo cp ./d-run /usr/bin
+

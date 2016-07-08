@@ -1,0 +1,13 @@
+#!/bin/bash
+#Run some utility in a Docker container for the current user
+
+U=$USER
+N=`getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1`
+ID=$UID
+P=`pwd`
+IM=$1
+shift 1
+docker run -it --rm -v /home/$U:/home/$U:Z $IM docker-run $U "$N" $ID $P "$@"
+
+
+

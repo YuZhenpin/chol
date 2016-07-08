@@ -1,0 +1,7 @@
+#!/bin/bash
+# Build basic docker image for centos
+
+docker build -t asterkin/base .
+#docker push asterkin/base:latest
+
+
