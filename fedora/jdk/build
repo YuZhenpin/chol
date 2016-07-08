@@ -1,0 +1,8 @@
+#!/bin/bash
+# Build docker image for centos jdk
+
+docker build -t asterkin/jdk:1.8 .
+docker tag asterkin/jdk:1.8 asterkin/jdk:latest 
+#docker push asterkin/gdk:latest
+
+
