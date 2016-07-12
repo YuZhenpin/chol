@@ -1,0 +1,9 @@
+#!/bin/bash
+#set GOPATH for the current user
+cd
+mkdir golang
+mkdir golang/src
+echo "export GOPATH=/home/$USER/golang" >>.bashrc
+echo Reboot!
+
+

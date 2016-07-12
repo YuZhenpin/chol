@@ -3,7 +3,6 @@
 #install python
 sudo dnf install -y gcc-c++
 sudo dnf install -y golang
-sudo sh -c "echo 'export GOPATH=~/golang' >> /etc/environment"
 sudo dnf install -y python
 
 
