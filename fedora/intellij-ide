@@ -1,0 +1,19 @@
+#!/bin/bash
+#install IntelliJ IDE
+cd /tmp
+export VERSION=2016.1.3
+export NAME=ideaIC-$VERSION
+export ARCHIVE=$NAME.tar.gz
+wget https://download.jetbrains.com/idea/$ARCHIVE
+tar -xvf $ARCHIVE
+export FOLDER=idea-IC-145.1617.8
+sudo mv $FOLDER /opt
+sudo ln -sf /opt/$FOLDER /opt/idea
+sudo ln -s /opt/idea/bin/idea.sh /usr/local/bin/idea
+idea
+
+
+
+
+
+
