@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#Prepare mesos master image
+#Pre-requisite: none
+#Arguments: none
+#Post-processing: take snapshot, create a fresh instance, run mesos-master-config
+
+sudo yum -y update
+sudo rpm -Uvh http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm
+sudo yum -y install mesos marathon
+sudo yum -y install mesosphere-zookeeper
+sudo systemctl stop mesos-slave.service
+sudo systemctl disable mesos-slave.service
+sleep 10
+echo 1. Take snapshot
+echo 2. Kill this instance
+echo 3. Create a fresh one from snapshot
+echo 4. Run mesos-master-config
+

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#Configure mesos master image
+#Pre-requisite: mesos master image prepared
+#Arguments: <floating-ip> <cluster name>
+#Post-processing: proceed with slave
+
+CLUSTER=$1
+IP=$(hostname -I)
+
+echo $IP,$CLUSTER
+
+#HOST=$(hostname)
+#sudo sed "s/127.0.0.1\t$HOST/$IP\t$HOST/" -i /etc/hosts
+
+#ZooKeeper
+sudo sh -c "echo 1 > /etc/zookeeper/conf/myid"
+sudo sh -c "echo server.1=$IP:2888:3888 | sed 's/ //' >> /etc/zookeeper/conf/zoo.cfg"
+sudo systemctl start zookeeper
+
+#Mesos Master
+COMMAND=`echo "s/localhost/$IP/" | sed "s/ //"`
+sudo sed $COMMAND -i /etc/mesos/zk
+sudo sh -c "echo $CLUSTER >/etc/mesos-master/cluster"
+sudo sh -c "echo 'WARNING' > /etc/mesos-master/logging_level"
+sudo sh -c "echo 1 >/etc/mesos-master/quorum"
+sudo sh -c "echo $IP > /etc/mesos-master/hostname"
+sudo sh -c "echo $IP >/etc/mesos-master/ip"
+sudo service mesos-master restart
+
+#Marathon
+# create the config dir
+sudo mkdir -p /etc/marathon/conf
+sudo cp /etc/mesos-master/hostname /etc/marathon/conf
+sudo cp /etc/mesos/zk /etc/marathon/conf/master
+sudo cp /etc/mesos/zk /etc/marathon/conf
+sudo mkdir -p /etc/marathon/store
+sudo sh -c "echo 'file:///etc/marathon/store' > /etc/marathon/conf/artifact_store"
+sudo sh -c "echo 'warn' > /etc/marathon/conf/logging_level"
+sudo service marathon restart
+

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#Configure mesos slave instance
+#Pre-requisite: master instance configured properly
+#Arguments: master IP
+
+MASTER_IP=$1
+read -r SLAVE_IP string <<< $(hostname -I)
+echo $SLAVE_IP
+COMMAND=`echo "s/localhost/$MASTER_IP/" | sed "s/ //"`
+HOST=$(hostname)
+sudo sed "s/127.0.0.1\t$HOST/$SLAVE_IP\t$HOST/" -i /etc/hosts
+sudo sed $COMMAND -i /etc/mesos/zk
+sudo sh -c "echo $SLAVE_IP > /etc/mesos-slave/hostname"
+sudo sh -c "echo $SLAVE_IP > /etc/mesos-slave/ip"
+sudo sh -c "echo 'docker,mesos' > /etc/mesos-slave/containerizers"
+sudo sh -c "echo 'WARNING' > /etc/mesos-slave/logging_level"
+
+sudo service mesos-slave restart
+
